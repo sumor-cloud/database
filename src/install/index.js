@@ -1,4 +1,4 @@
-import Connector from '../Connector.js'
+import Client from '../connect/client/Client.js'
 import installTable from './installTable.js'
 import sortView from './sortView/index.js'
 import fromCamelCase from '../utils/fromCamelCase.js'
@@ -8,11 +8,11 @@ export default async ({ config, logger, entity, view }) => {
     debug: console.log,
     trace: console.log
   }
-  const connector = new Connector(config, logger)
-  await connector.ensure()
-  await connector.connect()
+  const client = new Client(config, logger)
+  await client.ensure()
+  await client.connect()
 
-  const trx = await connector.knex.transaction()
+  const trx = await client.knex.transaction()
   try {
     for (const i in entity) {
       const objName = fromCamelCase(i)
@@ -38,5 +38,5 @@ export default async ({ config, logger, entity, view }) => {
     await trx.rollback()
   }
 
-  await connector.destroy()
+  await client.destroy()
 }

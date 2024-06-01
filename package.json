@@ -15,7 +15,9 @@
   "dependencies": {
     "@sumor/config": "^1.2.3",
     "fs-extra": "^11.2.0",
-    "knex": "^3.1.0"
+    "knex": "^3.1.0",
+    "@sumor/logger": "^1.2.2",
+    "@sumor/error": "^1.0.4"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

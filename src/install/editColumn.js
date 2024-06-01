@@ -1,4 +1,4 @@
-import toDBType from '../utils/toDBType.js'
+import toDBType from './toDBType.js'
 
 export default (table, name, parameterInfo, alterFlag) => {
   let parameterColumn

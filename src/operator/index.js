@@ -1,4 +1,4 @@
-import Connector from '../Connector.js'
+import Client from '../connect/client/Client.js'
 import getMethods from './methods.js'
 
 export default async ({ config, logger }) => {
@@ -20,17 +20,16 @@ export default async ({ config, logger }) => {
     }
   }, 1000)
 
-  const connector = new Connector(config, logger)
-  await connector.ensure()
-  await connector.connect()
+  const client = new Client(config, logger)
+  await client.connect()
 
   const cache = {
     info: {}
   }
 
-  const connect = async (logger, user) => getMethods(report, connector, cache, logger, user)
+  const connect = async (logger, user) => getMethods(report, client.knex, cache, logger, user)
   const destroy = async () => {
-    await connector.destroy()
+    await client.destroy()
   }
 
   return {

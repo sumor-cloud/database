@@ -1,8 +1,8 @@
 import fse from 'fs-extra'
 import knex from 'knex'
-import parseConfig from './utils/parseConfig.js'
+import parseConfig from '../config/parseKnexConfig.js'
 
-export default class Connector {
+export default class Client {
   constructor(config, logger) {
     this.config = config
     this._config = parseConfig(config)
@@ -13,20 +13,17 @@ export default class Connector {
   }
 
   async ensure() {
-    let baseConfig
+    const config = parseConfig(this.config, true)
     let database
     let mysqlChecker
     let schemaResult
     let existSchema
-    switch (this._config.client) {
+    switch (config.client) {
       case 'better-sqlite3':
-        await fse.ensureFile(this._config.connection.filename)
+        await fse.ensureFile(config.connection.filename)
         break
       case 'mysql2':
-        baseConfig = { ...this.config }
-        database = baseConfig.database
-        delete baseConfig.database
-        mysqlChecker = knex(parseConfig(baseConfig))
+        mysqlChecker = knex(config)
         schemaResult = await mysqlChecker.raw('show databases')
         existSchema = !!schemaResult[0].filter(obj => obj.Database === database)[0]
         if (!existSchema) {
@@ -43,7 +40,7 @@ export default class Connector {
         })
         break
       default:
-        this._logger.trace(`暂不支持${this._config.client}类型数据库创建，请自行确认数据库存在`)
+        this._logger.trace(`暂不支持${config.client}类型数据库创建，请自行确认数据库存在`)
         break
     }
   }

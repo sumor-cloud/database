@@ -4,15 +4,16 @@ import toCamelCase from '../utils/toCamelCase.js'
 import fromCamelCase from '../utils/fromCamelCase.js'
 import fromCamelCaseData from '../utils/fromCamelCaseData.js'
 import toCamelCaseData from '../utils/toCamelCaseData.js'
+import DatabaseError from '../i18n/DatabaseError.js'
 
-export default (report, connector, cache, logger, user) => {
+export default (report, knex, cache, logger, user) => {
   user = user || ''
 
   const methods = {}
   let trx
   const _beginTransaction = async function () {
     if (!trx) {
-      trx = await connector.knex.transaction()
+      trx = await knex.transaction()
       report.workingConnections++
     }
   }
@@ -268,7 +269,7 @@ export default (report, connector, cache, logger, user) => {
     const id = data.id
     delete data.id
     if (id === undefined || id === null) {
-      throw new Error('数据ID不存在，无法找到要更新的数据')
+      throw new DatabaseError('DATA_ENTRY_ID_NOT_FOUND')
     }
 
     data.updatedBy = user || '' // eslint-disable-line
