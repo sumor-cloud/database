@@ -29,8 +29,8 @@ export default (config, excludeDatabase) => {
         database: excludeDatabase ? undefined : config.database,
         charset: config.charset || 'utf8mb4'
       }
-      knexConfig.pool = config.pool || { min: 2, max: 10 }
       break
   }
+  knexConfig.pool = config.pool || { min: 0, max: 7 }
   return knexConfig
 }

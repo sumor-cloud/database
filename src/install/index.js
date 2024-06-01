@@ -1,18 +1,21 @@
-import Client from '../connect/client/Client.js'
+import getKnex from '../connect/index.js'
 import installTable from './installTable.js'
 import sortView from './sortView/index.js'
 import fromCamelCase from '../utils/fromCamelCase.js'
 
-export default async ({ config, logger, entity, view }) => {
-  logger = logger || {
+export default async ({ config, entity, view }) => {
+  const logger = {
     debug: console.log,
     trace: console.log
   }
-  const client = new Client(config, logger)
-  await client.ensure()
-  await client.connect()
+  const globalKnex = await getKnex(config, true)
+  await globalKnex.ensureDatabase(config.database)
+  await globalKnex.destroy()
 
-  const trx = await client.knex.transaction()
+  const knex = await getKnex(config)
+
+  const trx = await knex.transaction()
+  let error
   try {
     for (const i in entity) {
       const objName = fromCamelCase(i)
@@ -35,8 +38,13 @@ export default async ({ config, logger, entity, view }) => {
     }
     await trx.commit()
   } catch (e) {
+    error = e
     await trx.rollback()
   }
 
-  await client.destroy()
+  await knex.destroy()
+
+  if (error) {
+    throw error
+  }
 }

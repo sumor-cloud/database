@@ -20,7 +20,7 @@ export default (report, knex, cache, logger, user) => {
 
   methods.setUser = val => {
     user = val
-    logger.trace(`已修改操作用户为${val}`)
+    logger.code('OPERATOR_CHANGED', { user: val })
   }
 
   methods.info = async (table, forceReload) => {
@@ -131,7 +131,7 @@ export default (report, knex, cache, logger, user) => {
       }
     }
 
-    logger.trace(sql.toSQL().sql, sql.toSQL().bindings)
+    logger.code('SQL_EXECUTED', { sql: sql.toString() })
 
     const result = await sql
     return result[0].count
@@ -146,7 +146,11 @@ export default (report, knex, cache, logger, user) => {
     return result[0]
   }
   methods.select = async (table, condition, options) => {
-    logger.trace(`查询${table}，条件${JSON.stringify(condition)}，参数${JSON.stringify(options)}`)
+    logger.code('SELECT_EXECUTED', {
+      table,
+      condition: JSON.stringify(condition),
+      options: JSON.stringify(options)
+    })
     await _beginTransaction()
     options = options || {}
     table = fromCamelCase(table)
@@ -226,7 +230,7 @@ export default (report, knex, cache, logger, user) => {
       sql.offset(options.skip)
     }
 
-    logger.trace(sql.toSQL().sql, sql.toSQL().bindings)
+    logger.code('SQL_EXECUTED', { sql: sql.toString() })
 
     const result = await sql
     return result.map(obj => toCamelCaseData(obj))
@@ -256,7 +260,7 @@ export default (report, knex, cache, logger, user) => {
     data = fromCamelCaseData(data)
     const sql = trx.insert(data).into(table)
 
-    logger.trace(sql.toSQL().sql, sql.toSQL().bindings)
+    logger.code('SQL_EXECUTED', { sql: sql.toString() })
 
     await sql
     return data.id
@@ -278,12 +282,16 @@ export default (report, knex, cache, logger, user) => {
     data = fromCamelCaseData(data)
     const sql = trx.update(data).from(table).where({ id })
 
-    logger.trace(sql.toSQL().sql, sql.toSQL().bindings)
+    logger.code('SQL_EXECUTED', { sql: sql.toString() })
 
     await sql
   }
   methods.modify = async (table, check, data) => {
-    logger.trace(`强制修改${table}，数据${JSON.stringify(data)}，检查字段${JSON.stringify(check)}`)
+    logger.code('MODIFY_EXECUTED', {
+      table,
+      check: JSON.stringify(check),
+      data: JSON.stringify(data)
+    })
     table = fromCamelCase(table)
     const condition = {}
     for (const checkField of check) {
@@ -301,18 +309,22 @@ export default (report, knex, cache, logger, user) => {
     return id
   }
   methods.ensure = async (table, check, data) => {
-    logger.trace(`确保${table}存在数据${JSON.stringify(data)}，检查字段${JSON.stringify(check)}`)
+    logger.code('ENSURE_EXECUTED', {
+      table,
+      check: JSON.stringify(check),
+      data: JSON.stringify(data)
+    })
     table = fromCamelCase(table)
     const condition = {}
     for (const checkField of check) {
       condition[fromCamelCase(checkField)] = data[checkField]
     }
-    const exist = await methods.select(table, condition, { field: ['id'] })
+    const exist = await methods.single(table, condition, { field: ['id'] })
     let id
-    if (!exist[0]) {
+    if (!exist) {
       id = await methods.insert(table, data)
     } else {
-      id = exist[0].id
+      id = exist.id
     }
     return id
   }
@@ -324,7 +336,7 @@ export default (report, knex, cache, logger, user) => {
       sql.where(condition)
     }
 
-    logger.trace(sql.toSQL().sql, sql.toSQL().bindings)
+    logger.code('SQL_EXECUTED', { sql: sql.toString() })
 
     return await sql.del()
   }

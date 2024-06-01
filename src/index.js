@@ -1,9 +1,7 @@
 import install from './install/index.js'
-import operator from './operator/index.js'
-
-export { install, operator }
+import client from './client/index.js'
 
 export default {
   install,
-  operator
+  client
 }
