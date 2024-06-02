@@ -151,7 +151,7 @@ export default (report, knex, cache, user) => {
     logger.code('SELECT_EXECUTED', {
       table,
       condition: JSON.stringify(condition),
-      options: JSON.stringify(options)
+      options: options ? JSON.stringify(options) : '{}'
     })
     await _beginTransaction()
     options = options || {}
@@ -292,7 +292,7 @@ export default (report, knex, cache, user) => {
     logger.code('MODIFY_EXECUTED', {
       table,
       check: JSON.stringify(check),
-      data: JSON.stringify(data)
+      data: data ? JSON.stringify(data) : '{}'
     })
     table = fromCamelCase(table)
     const condition = {}
@@ -314,7 +314,7 @@ export default (report, knex, cache, user) => {
     logger.code('ENSURE_EXECUTED', {
       table,
       check: JSON.stringify(check),
-      data: JSON.stringify(data)
+      data: data ? JSON.stringify(data) : '{}'
     })
     table = fromCamelCase(table)
     const condition = {}

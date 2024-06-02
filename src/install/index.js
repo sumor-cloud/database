@@ -17,7 +17,7 @@ export default async ({ config, entity, view }) => {
   try {
     for (const i in entity) {
       const objName = fromCamelCase(i)
-      logger.code('INSTALLING_ENTITY', { name: i, entity: objName })
+      logger.code('INSTALLING_ENTITY', { name: i, table: objName })
       await installTable(trx, objName, entity[i])
       logger.code('INSTALL_ENTITY_SUCCESS', { name: i })
     }
