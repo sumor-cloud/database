@@ -153,11 +153,9 @@ const i18n = {
     INSTALL_VIEW_SUCCESS: '{name} 뷰가 성공적으로 설치되었습니다'
   }
 }
-export default (level, language) =>
+export default () =>
   new Logger({
     scope: 'DATABASE',
-    level,
-    language,
     code,
     i18n
   })

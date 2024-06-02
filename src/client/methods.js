@@ -5,8 +5,10 @@ import fromCamelCase from '../utils/fromCamelCase.js'
 import fromCamelCaseData from '../utils/fromCamelCaseData.js'
 import toCamelCaseData from '../utils/toCamelCaseData.js'
 import DatabaseError from '../i18n/DatabaseError.js'
+import getLogger from '../i18n/databaseLogger.js'
 
-export default (report, knex, cache, logger, user) => {
+export default (report, knex, cache, user) => {
+  const logger = getLogger()
   user = user || ''
 
   const methods = {}
