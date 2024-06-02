@@ -2,12 +2,10 @@ import getKnex from '../connect/index.js'
 import installTable from './installTable.js'
 import sortView from './sortView/index.js'
 import fromCamelCase from '../utils/fromCamelCase.js'
+import getLogger from '../i18n/databaseLogger.js'
 
 export default async ({ config, entity, view }) => {
-  const logger = {
-    debug: console.log,
-    trace: console.log
-  }
+  const logger = getLogger()
   const globalKnex = await getKnex(config, true)
   await globalKnex.ensureDatabase(config.database)
   await globalKnex.destroy()
@@ -19,9 +17,9 @@ export default async ({ config, entity, view }) => {
   try {
     for (const i in entity) {
       const objName = fromCamelCase(i)
-      logger.debug(`正在安装实体${i}为${objName}`)
+      logger.code('INSTALLING_ENTITY', { name: i, entity: objName })
       await installTable(trx, objName, entity[i])
-      logger.debug(`正在安装实体${i}完成`)
+      logger.code('INSTALL_ENTITY_SUCCESS', { name: i })
     }
     for (const i in view) {
       const objName = fromCamelCase(i)
@@ -30,11 +28,11 @@ export default async ({ config, entity, view }) => {
     const sortedView = sortView(view)
     for (const i in sortedView) {
       const objName = fromCamelCase(i)
-      logger.debug(`正在安装视图${i}为${objName}`)
+      logger.code('INSTALLING_VIEW', { name: i, view: objName })
       await trx.schema.createViewOrReplace(objName, view => {
         view.as(sortedView[i].sql)
       })
-      logger.debug(`正在安装视图${i}完成`)
+      logger.code('INSTALL_VIEW_SUCCESS', { name: i })
     }
     await trx.commit()
   } catch (e) {
