@@ -18,8 +18,7 @@ describe('main', () => {
       console.log('installDBId: ', installDBId)
       const config = await load(`${process.cwd()}/test/config`, 'DB')
       config.database = installDBId
-      await database.install({
-        config,
+      await database.install(config, {
         entity: {
           Car: {
             property: {

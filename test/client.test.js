@@ -11,8 +11,7 @@ describe('Operator', () => {
       const opDBId = `db_test_op_${Date.now()}`
       console.log('opDBId: ', opDBId)
       config.database = opDBId
-      await database.install({
-        config,
+      await database.install(config, {
         entity: {
           Car: {
             property: {

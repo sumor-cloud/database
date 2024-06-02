@@ -4,7 +4,7 @@ import sortView from './sortView/index.js'
 import fromCamelCase from '../utils/fromCamelCase.js'
 import getLogger from '../i18n/databaseLogger.js'
 
-export default async ({ config, entity, view }) => {
+export default async (config, { entity, view }) => {
   const logger = getLogger()
   const globalKnex = await getKnex(config, true)
   await globalKnex.ensureDatabase(config.database)
