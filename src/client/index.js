@@ -21,7 +21,7 @@ export default async config => {
     info: {}
   }
 
-  const connect = async (user, index) => getMethods(report, knex, cache, user, index)
+  const connect = async index => getMethods(report, knex, cache, index)
   const destroy = async () => {
     await knex.destroy()
     clearInterval(timer)
