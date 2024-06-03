@@ -16,7 +16,7 @@
     "@sumor/config": "^1.2.3",
     "fs-extra": "^11.2.0",
     "knex": "^3.1.0",
-    "@sumor/logger": "^1.2.4",
+    "@sumor/logger": "^1.2.5",
     "@sumor/error": "^1.0.4"
   },
   "devDependencies": {

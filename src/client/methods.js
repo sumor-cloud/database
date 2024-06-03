@@ -7,8 +7,8 @@ import toCamelCaseData from '../utils/toCamelCaseData.js'
 import DatabaseError from '../i18n/DatabaseError.js'
 import getLogger from '../i18n/databaseLogger.js'
 
-export default (report, knex, cache, user) => {
-  const logger = getLogger()
+export default (report, knex, cache, user, index) => {
+  const logger = getLogger(index)
   user = user || ''
 
   const methods = {}
