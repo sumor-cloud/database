@@ -1,0 +1,1 @@
+SELECT name, CONCAT(mobile_prefix,'-',mobile) AS mobile FROM user;

@@ -1,0 +1,10 @@
+property:
+  name:
+    type: string
+    length: 100
+  mobilePrefix:
+    type: string
+    length: 3
+  mobile:
+    type: string
+    length: 11
