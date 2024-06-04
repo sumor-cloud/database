@@ -34,6 +34,7 @@ export default async (config, source) => {
     for (const i in sortedView) {
       const objName = fromCamelCase(i)
       logger.code('INSTALLING_VIEW', { name: i, view: objName })
+      logger.debug(sortedView[i].sql)
       await trx.schema.createViewOrReplace(objName, view => {
         view.as(sortedView[i].sql)
       })
