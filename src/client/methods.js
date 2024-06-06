@@ -25,6 +25,15 @@ export default (report, knex, cache, index) => {
     logger.code('OPERATOR_CHANGED', { user: val })
   }
 
+  methods.id = async table => {
+    const id = uuid()
+    const count = await methods.count(table, { id })
+    if (count !== 0) {
+      return await methods.id()
+    }
+    return id
+  }
+
   methods.info = async (table, forceReload) => {
     if (!forceReload && cache.info[table]) {
       return cache.info[table]
