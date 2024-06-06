@@ -64,52 +64,56 @@ describe('main', () => {
     20 * 1000
   )
 
-  it('load from files', async () => {
-    const installDBId = `db_test_inst_${Date.now()}`
-    console.log('installDBId: ', installDBId)
-    const config = await load(`${process.cwd()}/test/config`, 'DB')
-    config.database = installDBId
-    await database.install(config, `${process.cwd()}/test/demo`)
+  it(
+    'load from files',
+    async () => {
+      const installDBId = `db_test_inst_${Date.now()}`
+      console.log('installDBId: ', installDBId)
+      const config = await load(`${process.cwd()}/test/config`, 'DB')
+      config.database = installDBId
+      await database.install(config, `${process.cwd()}/test/demo`)
 
-    const knex = await getKnex(config)
+      const knex = await getKnex(config)
 
-    let error
-    try {
-      await knex('user').insert({
-        name: 'tester',
-        mobile_prefix: '86',
-        mobile: '13800138000'
+      let error
+      try {
+        await knex('user').insert({
+          name: 'tester',
+          mobile_prefix: '86',
+          mobile: '13800138000'
+        })
+        const result = await knex.raw('SELECT * FROM v_user')
+        expect(result[0][0]).toEqual({
+          name: 'tester',
+          mobile: '86-13800138000'
+        })
+      } catch (e) {
+        error = e
+      }
+
+      // destroy test
+      await knex.destroy()
+
+      const globalKnex = await getKnex(config, true)
+      const databases = await globalKnex.databases()
+      expect(databases.includes(installDBId)).toBe(true)
+
+      await globalKnex.dropDatabase(installDBId)
+
+      // destroy test
+      await globalKnex.destroy()
+
+      // avoid destroy not complete jest warning
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve()
+        }, 1000)
       })
-      const result = await knex.raw('SELECT * FROM v_user')
-      expect(result[0][0]).toEqual({
-        name: 'tester',
-        mobile: '86-13800138000'
-      })
-    } catch (e) {
-      error = e
-    }
 
-    // destroy test
-    await knex.destroy()
-
-    const globalKnex = await getKnex(config, true)
-    const databases = await globalKnex.databases()
-    expect(databases.includes(installDBId)).toBe(true)
-
-    await globalKnex.dropDatabase(installDBId)
-
-    // destroy test
-    await globalKnex.destroy()
-
-    // avoid destroy not complete jest warning
-    await new Promise(resolve => {
-      setTimeout(() => {
-        resolve()
-      }, 1000)
-    })
-
-    if (error) {
-      throw error
-    }
-  })
+      if (error) {
+        throw error
+      }
+    },
+    60 * 1000
+  )
 })
