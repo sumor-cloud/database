@@ -26,7 +26,8 @@ describe('main', () => {
                 type: 'string',
                 length: 100
               }
-            }
+            },
+            index: ['model']
           }
         },
         view: {}
@@ -34,6 +35,19 @@ describe('main', () => {
       const knex = await getKnex(config)
       const existsTable = await knex.schema.hasTable('car')
       expect(existsTable).toBe(true)
+
+      // check primary key 'id' index exists in mysql
+      let result = await knex.raw('SHOW INDEX FROM car')
+      result = result[0]
+      const hasPrimaryKey = result.filter(o => {
+        return o.Column_name === 'id' && o.Key_name === 'PRIMARY'
+      })[0]
+      expect(hasPrimaryKey).toBeDefined()
+
+      const hasIndex = result.filter(o => {
+        return o.Column_name === 'model'
+      })[0]
+      expect(hasIndex).toBeDefined()
 
       // destroy test
       await knex.destroy()

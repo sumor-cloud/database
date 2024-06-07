@@ -15,7 +15,7 @@ export default async (trx, tableName, info) => {
       }
     }
     if (!hasKey) {
-      property.id = { type: 'string', length: 32 }
+      property.id = { type: 'string', length: 32, key: true }
     }
     for (const i in info.property) {
       if (i === 'id' && !hasKey) {
@@ -91,5 +91,25 @@ export default async (trx, tableName, info) => {
         }
       }
     })
+  }
+
+  let existsIndex = await trx.raw(`SHOW INDEX FROM ${tableName}`)
+  existsIndex = existsIndex[0]
+
+  // ensure primary key index exists
+  const hasPrimaryKeyIndex = existsIndex.filter(o => {
+    return o.Column_name === 'id' && o.Key_name === 'PRIMARY'
+  })[0]
+  if (!hasPrimaryKeyIndex) {
+    await trx.raw('ALTER TABLE ?? ADD PRIMARY KEY (`id`)', [tableName])
+  }
+
+  // ensure index exists
+  if (info.index) {
+    for (const index of info.index) {
+      if (!existsIndex.filter(o => o.Key_name === index)[0]) {
+        await trx.raw(`CREATE INDEX ${index} ON ${tableName} (${index})`)
+      }
+    }
   }
 }
