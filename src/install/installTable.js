@@ -1,5 +1,7 @@
 import fromCamelCase from '../utils/fromCamelCase.js'
 import editColumn from './editColumn.js'
+import getLogger from '../i18n/databaseLogger.js'
+const logger = getLogger()
 
 export default async (trx, tableName, info) => {
   info = info || {}
@@ -101,6 +103,7 @@ export default async (trx, tableName, info) => {
     return o.Column_name === 'id' && o.Key_name === 'PRIMARY'
   })[0]
   if (!hasPrimaryKeyIndex) {
+    logger.code('ADD_TABLE_INDEX', { column: 'id', table: tableName })
     await trx.raw('ALTER TABLE ?? ADD PRIMARY KEY (`id`)', [tableName])
   }
 
@@ -109,6 +112,7 @@ export default async (trx, tableName, info) => {
     for (const index of info.index) {
       const columnName = fromCamelCase(index)
       if (!existsIndex.filter(o => o.Key_name === columnName)[0]) {
+        logger.code('ADD_TABLE_INDEX', { column: columnName, table: tableName })
         await trx.raw(`CREATE INDEX ${columnName} ON ${tableName} (${columnName})`)
       }
     }

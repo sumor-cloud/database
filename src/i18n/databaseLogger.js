@@ -15,7 +15,8 @@ const code = {
     INSTALLING_ENTITY: 'Installing entity {name} as {table}',
     INSTALL_ENTITY_SUCCESS: 'Entity {name} installed successfully',
     INSTALLING_VIEW: 'Installing view {name} as {view}',
-    INSTALL_VIEW_SUCCESS: 'View {name} installed successfully'
+    INSTALL_VIEW_SUCCESS: 'View {name} installed successfully',
+    ADD_TABLE_INDEX: 'Add index for column {column} to table {table}'
   },
   warn: {
     TOO_MANY_CONNECTIONS:
@@ -36,7 +37,8 @@ const i18n = {
     INSTALLING_ENTITY: '正在安装实体{name}为{table}',
     INSTALL_ENTITY_SUCCESS: '实体{name}安装成功',
     INSTALLING_VIEW: '正在安装视图{name}为{view}',
-    INSTALL_VIEW_SUCCESS: '视图{name}安装成功'
+    INSTALL_VIEW_SUCCESS: '视图{name}安装成功',
+    ADD_TABLE_INDEX: '为表{table}的列{column}添加索引'
   },
   es: {
     OPERATOR_CHANGED: 'Operador cambiado a {user}',
@@ -50,7 +52,8 @@ const i18n = {
     INSTALLING_ENTITY: 'Instalando entidad {name} como {table}',
     INSTALL_ENTITY_SUCCESS: 'Entidad {name} instalada con éxito',
     INSTALLING_VIEW: 'Instalando vista {name} como {view}',
-    INSTALL_VIEW_SUCCESS: 'Vista {name} instalada con éxito'
+    INSTALL_VIEW_SUCCESS: 'Vista {name} instalada con éxito',
+    ADD_TABLE_INDEX: 'Agregar índice para columna {column} a tabla {table}'
   },
   ar: {
     OPERATOR_CHANGED: 'تم تغيير المشغل إلى {user}',
@@ -63,7 +66,8 @@ const i18n = {
     INSTALLING_ENTITY: 'تثبيت الكيان {name} كـ {table}',
     INSTALL_ENTITY_SUCCESS: 'تم تثبيت الكيان {name} بنجاح',
     INSTALLING_VIEW: 'تثبيت العرض {name} كـ {view}',
-    INSTALL_VIEW_SUCCESS: 'تم تثبيت العرض {name} بنجاح'
+    INSTALL_VIEW_SUCCESS: 'تم تثبيت العرض {name} بنجاح',
+    ADD_TABLE_INDEX: 'إضافة فهرس للعمود {column} إلى الجدول {table}'
   },
   fr: {
     OPERATOR_CHANGED: 'Opérateur changé en {user}',
@@ -79,7 +83,8 @@ const i18n = {
     INSTALLING_ENTITY: "Installation de l'entité {name} en tant que {table}",
     INSTALL_ENTITY_SUCCESS: 'Entité {name} installée avec succès',
     INSTALLING_VIEW: 'Installation de la vue {name} en tant que {view}',
-    INSTALL_VIEW_SUCCESS: 'Vue {name} installée avec succès'
+    INSTALL_VIEW_SUCCESS: 'Vue {name} installée avec succès',
+    ADD_TABLE_INDEX: 'Ajouter un index pour la colonne {column} à la table {table}'
   },
   ru: {
     OPERATOR_CHANGED: 'Оператор изменен на {user}',
@@ -93,7 +98,8 @@ const i18n = {
     INSTALLING_ENTITY: 'Установка сущности {name} как {table}',
     INSTALL_ENTITY_SUCCESS: 'Сущность {name} успешно установлена',
     INSTALLING_VIEW: 'Установка представления {name} как {view}',
-    INSTALL_VIEW_SUCCESS: 'Представление {name} успешно установлено'
+    INSTALL_VIEW_SUCCESS: 'Представление {name} успешно установлено',
+    ADD_TABLE_INDEX: 'Добавить индекс для столбца {column} в таблицу {table}'
   },
   de: {
     OPERATOR_CHANGED: 'Operator geändert auf {user}',
@@ -107,7 +113,8 @@ const i18n = {
     INSTALLING_ENTITY: 'Entität {name} als {table} installieren',
     INSTALL_ENTITY_SUCCESS: 'Entität {name} erfolgreich installiert',
     INSTALLING_VIEW: 'Ansicht {name} als {view} installieren',
-    INSTALL_VIEW_SUCCESS: 'Ansicht {name} erfolgreich installiert'
+    INSTALL_VIEW_SUCCESS: 'Ansicht {name} erfolgreich installiert',
+    ADD_TABLE_INDEX: 'Index für Spalte {column} zur Tabelle {table} hinzufügen'
   },
   pt: {
     OPERATOR_CHANGED: 'Operador alterado para {user}',
@@ -120,7 +127,8 @@ const i18n = {
     INSTALLING_ENTITY: 'Instalando entidade {name} como {table}',
     INSTALL_ENTITY_SUCCESS: 'Entidade {name} instalada com sucesso',
     INSTALLING_VIEW: 'Instalando visualização {name} como {view}',
-    INSTALL_VIEW_SUCCESS: 'Visualização {name} instalada com sucesso'
+    INSTALL_VIEW_SUCCESS: 'Visualização {name} instalada com sucesso',
+    ADD_TABLE_INDEX: 'Adicionar índice para coluna {column} à tabela {table}'
   },
   ja: {
     OPERATOR_CHANGED: 'オペレーターが{user}に変更されました',
@@ -136,7 +144,8 @@ const i18n = {
     INSTALLING_ENTITY: '{name}を{table}としてインストール中',
     INSTALL_ENTITY_SUCCESS: '{name}エンティティが正常にインストールされました',
     INSTALLING_VIEW: '{name}を{view}としてインストール中',
-    INSTALL_VIEW_SUCCESS: '{name}ビューが正常にインストールされました'
+    INSTALL_VIEW_SUCCESS: '{name}ビューが正常にインストールされました',
+    ADD_TABLE_INDEX: '列{column}のインデックスをテーブル{table}に追加'
   },
   ko: {
     OPERATOR_CHANGED: '작업자가 {user}로 변경되었습니다',
@@ -150,7 +159,8 @@ const i18n = {
     INSTALLING_ENTITY: '{name}을 {table}로 설치 중',
     INSTALL_ENTITY_SUCCESS: '{name} 엔티티가 성공적으로 설치되었습니다',
     INSTALLING_VIEW: '{name}을 {view}로 설치 중',
-    INSTALL_VIEW_SUCCESS: '{name} 뷰가 성공적으로 설치되었습니다'
+    INSTALL_VIEW_SUCCESS: '{name} 뷰가 성공적으로 설치되었습니다',
+    ADD_TABLE_INDEX: '테이블 {table}의 열 {column}에 인덱스 추가'
   }
 }
 export default id =>
