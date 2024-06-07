@@ -161,9 +161,11 @@ const cars = await db.select(
 ### Entity Definition Options
 
 #### Index
+
 you can add index array to entity definition to create index on table, by default, it will create index on `id` field.
 
 #### Join
+
 you can add join object to entity definition to create join on table.
 like below example, it will create userId field in Car entity.
 
@@ -193,11 +195,10 @@ await database.install(config, {
       },
       index: ['userId'],
       join: {
-        user: "User"
+        user: 'User'
       }
     }
   },
   view: {}
 })
-
 ```

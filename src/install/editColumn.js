@@ -75,10 +75,6 @@ export default (table, name, parameterInfo, alterFlag) => {
     }
   }
 
-  if (parameterInfo.key) {
-    parameterColumn.primary()
-  }
-
   if (alterFlag) {
     parameterColumn.alter()
   }

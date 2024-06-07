@@ -18,7 +18,8 @@ describe('main', () => {
       console.log('installDBId: ', installDBId)
       const config = await load(`${process.cwd()}/test/config`, 'DB')
       config.database = installDBId
-      await database.install(config, {
+
+      const objects = {
         entity: {
           Car: {
             property: {
@@ -31,7 +32,9 @@ describe('main', () => {
           }
         },
         view: {}
-      })
+      }
+      await database.install(config, objects)
+      await database.install(config, objects)
       const knex = await getKnex(config)
       const existsTable = await knex.schema.hasTable('car')
       expect(existsTable).toBe(true)
