@@ -20,7 +20,8 @@ const code = {
   },
   warn: {
     TOO_MANY_CONNECTIONS:
-      'Too many connections, please check if there are uncommitted transactions, current connections: {count}'
+      'Too many connections, please check if there are uncommitted transactions, current connections: {count}',
+    QUERY_SQL_TOO_SLOW: 'Query time is too long: {time}ms, SQL: {sql}'
   },
   error: {}
 }
@@ -38,7 +39,8 @@ const i18n = {
     INSTALL_ENTITY_SUCCESS: '实体{name}安装成功',
     INSTALLING_VIEW: '正在安装视图{name}为{view}',
     INSTALL_VIEW_SUCCESS: '视图{name}安装成功',
-    ADD_TABLE_INDEX: '为表{table}的列{column}添加索引'
+    ADD_TABLE_INDEX: '为表{table}的列{column}添加索引',
+    QUERY_SQL_TOO_SLOW: '查询时间太长：{time}ms，SQL：{sql}'
   },
   es: {
     OPERATOR_CHANGED: 'Operador cambiado a {user}',
@@ -53,7 +55,8 @@ const i18n = {
     INSTALL_ENTITY_SUCCESS: 'Entidad {name} instalada con éxito',
     INSTALLING_VIEW: 'Instalando vista {name} como {view}',
     INSTALL_VIEW_SUCCESS: 'Vista {name} instalada con éxito',
-    ADD_TABLE_INDEX: 'Agregar índice para columna {column} a tabla {table}'
+    ADD_TABLE_INDEX: 'Agregar índice para columna {column} a tabla {table}',
+    QUERY_SQL_TOO_SLOW: 'El tiempo de consulta es demasiado largo: {time}ms, SQL: {sql}'
   },
   ar: {
     OPERATOR_CHANGED: 'تم تغيير المشغل إلى {user}',
@@ -67,7 +70,8 @@ const i18n = {
     INSTALL_ENTITY_SUCCESS: 'تم تثبيت الكيان {name} بنجاح',
     INSTALLING_VIEW: 'تثبيت العرض {name} كـ {view}',
     INSTALL_VIEW_SUCCESS: 'تم تثبيت العرض {name} بنجاح',
-    ADD_TABLE_INDEX: 'إضافة فهرس للعمود {column} إلى الجدول {table}'
+    ADD_TABLE_INDEX: 'إضافة فهرس للعمود {column} إلى الجدول {table}',
+    QUERY_SQL_TOO_SLOW: 'وقت الاستعلام طويل جدًا: {time}ms، SQL: {sql}'
   },
   fr: {
     OPERATOR_CHANGED: 'Opérateur changé en {user}',
@@ -84,7 +88,8 @@ const i18n = {
     INSTALL_ENTITY_SUCCESS: 'Entité {name} installée avec succès',
     INSTALLING_VIEW: 'Installation de la vue {name} en tant que {view}',
     INSTALL_VIEW_SUCCESS: 'Vue {name} installée avec succès',
-    ADD_TABLE_INDEX: 'Ajouter un index pour la colonne {column} à la table {table}'
+    ADD_TABLE_INDEX: 'Ajouter un index pour la colonne {column} à la table {table}',
+    QUERY_SQL_TOO_SLOW: 'Le temps de requête est trop long : {time}ms, SQL : {sql}'
   },
   ru: {
     OPERATOR_CHANGED: 'Оператор изменен на {user}',
@@ -99,7 +104,8 @@ const i18n = {
     INSTALL_ENTITY_SUCCESS: 'Сущность {name} успешно установлена',
     INSTALLING_VIEW: 'Установка представления {name} как {view}',
     INSTALL_VIEW_SUCCESS: 'Представление {name} успешно установлено',
-    ADD_TABLE_INDEX: 'Добавить индекс для столбца {column} в таблицу {table}'
+    ADD_TABLE_INDEX: 'Добавить индекс для столбца {column} в таблицу {table}',
+    QUERY_SQL_TOO_SLOW: 'Время выполнения запроса слишком долгое: {time}мс, SQL: {sql}'
   },
   de: {
     OPERATOR_CHANGED: 'Operator geändert auf {user}',
@@ -114,7 +120,8 @@ const i18n = {
     INSTALL_ENTITY_SUCCESS: 'Entität {name} erfolgreich installiert',
     INSTALLING_VIEW: 'Ansicht {name} als {view} installieren',
     INSTALL_VIEW_SUCCESS: 'Ansicht {name} erfolgreich installiert',
-    ADD_TABLE_INDEX: 'Index für Spalte {column} zur Tabelle {table} hinzufügen'
+    ADD_TABLE_INDEX: 'Index für Spalte {column} zur Tabelle {table} hinzufügen',
+    QUERY_SQL_TOO_SLOW: 'Abfragezeit ist zu lang: {time}ms, SQL: {sql}'
   },
   pt: {
     OPERATOR_CHANGED: 'Operador alterado para {user}',
@@ -128,7 +135,8 @@ const i18n = {
     INSTALL_ENTITY_SUCCESS: 'Entidade {name} instalada com sucesso',
     INSTALLING_VIEW: 'Instalando visualização {name} como {view}',
     INSTALL_VIEW_SUCCESS: 'Visualização {name} instalada com sucesso',
-    ADD_TABLE_INDEX: 'Adicionar índice para coluna {column} à tabela {table}'
+    ADD_TABLE_INDEX: 'Adicionar índice para coluna {column} à tabela {table}',
+    QUERY_SQL_TOO_SLOW: 'O tempo de consulta é muito longo: {time}ms, SQL: {sql}'
   },
   ja: {
     OPERATOR_CHANGED: 'オペレーターが{user}に変更されました',
@@ -145,7 +153,8 @@ const i18n = {
     INSTALL_ENTITY_SUCCESS: '{name}エンティティが正常にインストールされました',
     INSTALLING_VIEW: '{name}を{view}としてインストール中',
     INSTALL_VIEW_SUCCESS: '{name}ビューが正常にインストールされました',
-    ADD_TABLE_INDEX: '列{column}のインデックスをテーブル{table}に追加'
+    ADD_TABLE_INDEX: '列{column}のインデックスをテーブル{table}に追加',
+    QUERY_SQL_TOO_SLOW: 'クエリ時間が長すぎます：{time}ms、SQL：{sql}'
   },
   ko: {
     OPERATOR_CHANGED: '작업자가 {user}로 변경되었습니다',
@@ -160,7 +169,8 @@ const i18n = {
     INSTALL_ENTITY_SUCCESS: '{name} 엔티티가 성공적으로 설치되었습니다',
     INSTALLING_VIEW: '{name}을 {view}로 설치 중',
     INSTALL_VIEW_SUCCESS: '{name} 뷰가 성공적으로 설치되었습니다',
-    ADD_TABLE_INDEX: '테이블 {table}의 열 {column}에 인덱스 추가'
+    ADD_TABLE_INDEX: '테이블 {table}의 열 {column}에 인덱스 추가',
+    QUERY_SQL_TOO_SLOW: '쿼리 시간이 너무 깁니다: {time}ms, SQL: {sql}'
   }
 }
 export default id =>

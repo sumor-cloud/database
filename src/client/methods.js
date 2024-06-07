@@ -243,7 +243,16 @@ export default (report, knex, cache, index) => {
 
     logger.code('SQL_EXECUTED', { sql: sql.toString() })
 
+    const startTime = Date.now()
     const result = await sql
+    const costTime = Date.now() - startTime
+    if (costTime > 1000) {
+      logger.code('QUERY_SQL_TOO_SLOW', {
+        sql: sql.toString(),
+        time: costTime
+      })
+    }
+
     return result.map(obj => toCamelCaseData(obj))
   }
 
