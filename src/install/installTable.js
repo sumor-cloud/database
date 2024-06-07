@@ -107,8 +107,9 @@ export default async (trx, tableName, info) => {
   // ensure index exists
   if (info.index) {
     for (const index of info.index) {
-      if (!existsIndex.filter(o => o.Key_name === index)[0]) {
-        await trx.raw(`CREATE INDEX ${index} ON ${tableName} (${index})`)
+      const columnName = fromCamelCase(index)
+      if (!existsIndex.filter(o => o.Key_name === columnName)[0]) {
+        await trx.raw(`CREATE INDEX ${columnName} ON ${tableName} (${columnName})`)
       }
     }
   }
