@@ -75,20 +75,32 @@ describe('Operator', () => {
         const count2 = await db.count('Car')
         expect(count2).toBe(1)
 
-        const ensureId = await db.ensure('Car', ['model'], { model: 'fast', brand: 'bz' })
-        const ensureId2 = await db.ensure('Car', ['model'], { model: 'fast', brand: 'bmw' })
+        const ensureId = await db.ensure('Car', ['model'], {
+          model: 'fast',
+          brand: 'bz'
+        })
+        const ensureId2 = await db.ensure('Car', ['model'], {
+          model: 'fast',
+          brand: 'bmw'
+        })
         expect(ensureId).toBe(ensureId2)
 
         const result3 = await db.single('Car', { model: 'fast' })
         expect(result3.model).toBe('fast')
         expect(result3.brand).toBe('bz')
 
-        const modifyId = await db.modify('Car', ['model'], { model: 'quz', brand: 'bz' })
+        const modifyId = await db.modify('Car', ['model'], {
+          model: 'quz',
+          brand: 'bz'
+        })
         const result4 = await db.single('Car', { model: 'quz' })
         expect(result4.model).toBe('quz')
         expect(result4.brand).toBe('bz')
         await db.commit()
-        const modifyId2 = await db.modify('Car', ['model'], { model: 'quz', brand: 'bmw' })
+        const modifyId2 = await db.modify('Car', ['model'], {
+          model: 'quz',
+          brand: 'bmw'
+        })
         expect(modifyId).toBe(modifyId2)
         const result5 = await db.single('Car', { model: 'quz' })
         expect(result5.model).toBe('quz')

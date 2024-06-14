@@ -29,7 +29,10 @@ export default async (trx, tableName, info) => {
     const timeDefine = { type: 'number', length: 13 }
     if (info.join) {
       for (const columnName in info.join) {
-        property[`${fromCamelCase(columnName)}_id`] = { type: 'string', length: 32 }
+        property[`${fromCamelCase(columnName)}_id`] = {
+          type: 'string',
+          length: 32
+        }
       }
     }
     property.createdBy = { name: '创建者', type: 'string', length: 32 }
@@ -112,7 +115,10 @@ export default async (trx, tableName, info) => {
     for (const index of info.index) {
       const columnName = fromCamelCase(index)
       if (!existsIndex.filter(o => o.Key_name === columnName)[0]) {
-        logger.code('ADD_TABLE_INDEX', { column: columnName, table: tableName })
+        logger.code('ADD_TABLE_INDEX', {
+          column: columnName,
+          table: tableName
+        })
         await trx.raw(`CREATE INDEX ${columnName} ON ${tableName} (${columnName})`)
       }
     }
