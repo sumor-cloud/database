@@ -48,7 +48,7 @@ export default (table, name, parameterInfo, alterFlag) => {
         actualValueType = 'string'
         break
       case 'double':
-        parameterColumn = table.double(name, parameterInfo.length, parameterInfo.scale)
+        parameterColumn = table.double(name, parameterInfo.length, parameterInfo.decimal)
         actualValueType = 'number'
         break
       default:
