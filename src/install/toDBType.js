@@ -14,7 +14,7 @@ export default info => {
     case 'number':
       if (length > 18) {
         resultType = 'string'
-      } else if (info.scale !== null && info.scale !== undefined) {
+      } else if (info.decimal) {
         resultType = 'double'
       } else if (length > 9) {
         // INT max 2147483647
