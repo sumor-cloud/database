@@ -1,7 +1,7 @@
 {
   "name": "@sumor/database",
   "description": "A database connector for MySQL, etc. Based on entity.",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "license": "MIT",
   "repository": "sumor-cloud/database",
   "author": "Sumor Cloud Ltd",
