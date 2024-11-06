@@ -350,6 +350,7 @@ export default (report, knex, cache, index) => {
   }
   methods.delete = async (table, condition) => {
     table = fromCamelCase(table)
+    await _beginTransaction()
     const sql = trx.from(table)
     if (condition) {
       condition = fromCamelCaseData(condition)
