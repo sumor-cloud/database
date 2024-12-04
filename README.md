@@ -41,41 +41,42 @@ You can use install method to install entity and view to database.
 database.install(config, [resource path], [resource data])
 
 case 1: install entity and view from resource path, it will load data/entity and data/view from project root path.
+
 ```js
 import database from '@sumor/database'
 
 const config = {
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'database',
-    port: 3306
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  database: 'database',
+  port: 3306
 }
 
 await database.install(config.database, process.cwd() + '/data')
-
 ```
 
 case 2: install entity and view from resource data, it will load data/entity and data/view from data object.
+
 ```js
 import database from '@sumor/database'
 
 await database.install(config, {
-    entity: {
-        Car: {
-            property: {
-                brand: {
-                    type: 'string',
-                    length: 100
-                },
-                model: {
-                    type: 'string',
-                    length: 100
-                }
-            }
+  entity: {
+    Car: {
+      property: {
+        brand: {
+          type: 'string',
+          length: 100
+        },
+        model: {
+          type: 'string',
+          length: 100
         }
-    },
-    view: {}
+      }
+    }
+  },
+  view: {}
 })
 ```
 

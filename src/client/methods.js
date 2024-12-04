@@ -178,6 +178,7 @@ export default (report, knex, cache, index) => {
     if (condition) {
       condition = fromCamelCaseData(condition)
       for (const i in condition) {
+        whereFlag = true
         if (type(condition[i]) === 'object') {
           for (const j in condition[i]) {
             const cond = j
@@ -194,23 +195,25 @@ export default (report, knex, cache, index) => {
           sql.where(i, condition[i])
         }
       }
-      whereFlag = true
     }
 
     // 搜索条件
     if (options.term && options.term !== '' && options.termRange) {
-      for (const i in options.termRange) {
-        const range = options.termRange[i]
-        if (parseInt(i) === 0) {
-          if (!whereFlag) {
-            sql.where(range, 'like', `%${options.term}%`)
-            whereFlag = true
+      const whereBuilder = function () {
+        let current
+        for (const i in options.termRange) {
+          const range = options.termRange[i]
+          if (parseInt(i) === 0) {
+            current = this.where(range, 'like', `%${options.term}%`)
           } else {
-            sql.andWhere(range, 'like', `%${options.term}%`)
+            current = current.orWhere(range, 'like', `%${options.term}%`)
           }
-        } else {
-          sql.orWhere(range, 'like', `%${options.term}%`)
         }
+      }
+      if (!whereFlag) {
+        sql.where(whereBuilder)
+      } else {
+        sql.andWhere(whereBuilder)
       }
     }
 

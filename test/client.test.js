@@ -4,6 +4,22 @@ import { load } from '@sumor/config'
 import getKnex from '../src/connect/index.js'
 
 describe('Operator', () => {
+  it('where', async () => {
+    const config = await load(`${process.cwd()}/test/config`, 'DB')
+    const globalKnex = await getKnex(config, true)
+    const sql = globalKnex('users')
+      .where({
+        first_name: 'Test',
+        last_name: 'User'
+      })
+      .andWhere(function () {
+        this.where('id', '>', 1).orWhere('age', '>', 2)
+      })
+      .select('id')
+      .toSQL()
+    console.log(sql)
+    await globalKnex.destroy()
+  }, 10000)
   it(
     'crud',
     async () => {
